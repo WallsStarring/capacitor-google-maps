@@ -3,6 +3,7 @@ package com.capacitorjs.plugins.googlemaps
 import android.annotation.SuppressLint
 import android.graphics.*
 import android.location.Location
+import android.util.Base64
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -18,6 +19,7 @@ import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.net.URL
 
@@ -45,7 +47,7 @@ class CapacitorGoogleMap(
     private val tileOverlays = HashMap<String, CapacitorGoogleMapTileOverlay>()
     private val polygons = HashMap<String, CapacitorGoogleMapsPolygon>()
     private val circles = HashMap<String, CapacitorGoogleMapsCircle>()
-    private val polylines = HashMap<String, CapacitorGoogleMapPolyline>()        
+    private val polylines = HashMap<String, CapacitorGoogleMapPolyline>()
     private val markerIcons = HashMap<String, Bitmap>()
     private var clusterManager: ClusterManager<CapacitorGoogleMapMarker>? = null
 
@@ -401,7 +403,7 @@ class CapacitorGoogleMap(
                     }
                     val googleMapPolyline = googleMap?.addPolyline(polylineOptions.await())
                     googleMapPolyline?.tag = it.tag
-                    
+
                     it.googleMapsPolyline = googleMapPolyline
 
                     polylines[googleMapPolyline!!.id] = it
@@ -830,7 +832,7 @@ class CapacitorGoogleMap(
 
         return polygonOptions
     }
-    
+
     private fun buildPolyline(line: CapacitorGoogleMapPolyline): PolylineOptions {
         val polylineOptions = PolylineOptions()
         polylineOptions.width(line.strokeWidth * this.config.devicePixelRatio)
@@ -838,7 +840,9 @@ class CapacitorGoogleMap(
         polylineOptions.clickable(line.clickable)
         polylineOptions.zIndex(line.zIndex)
         polylineOptions.geodesic(line.geodesic)
-
+        if (line.strokePattern != null) {
+            polylineOptions.pattern(line.strokePattern)
+        }
         line.path.forEach {
             polylineOptions.add(it)
         }
@@ -875,7 +879,12 @@ class CapacitorGoogleMap(
             } else {
                 try {
                     var stream: InputStream? = null
-                    if (marker.iconUrl!!.startsWith("https:")) {
+                    if (marker.iconUrl!!.startsWith("data:")) {
+                        val base64Data = marker.iconUrl!!.split(",")[1]
+                        val decodedBytes = Base64.decode(base64Data, Base64.DEFAULT)
+                        stream = ByteArrayInputStream(decodedBytes)
+                    }
+                    else if (marker.iconUrl!!.startsWith("https:")) {
                         stream = URL(marker.iconUrl).openConnection().getInputStream()
                     } else {
                         stream = this.delegate.context.assets.open("public/${marker.iconUrl}")
