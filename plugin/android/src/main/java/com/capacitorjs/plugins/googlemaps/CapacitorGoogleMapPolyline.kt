@@ -2,7 +2,11 @@ package com.capacitorjs.plugins.googlemaps
 
 import android.graphics.Color
 import androidx.core.graphics.toColor
+import com.google.android.gms.maps.model.Dash
+import com.google.android.gms.maps.model.Dot
+import com.google.android.gms.maps.model.Gap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.PatternItem
 import com.google.android.gms.maps.model.Polyline
 import org.json.JSONObject
 
@@ -16,6 +20,7 @@ class CapacitorGoogleMapPolyline(fromJSONObject: JSONObject) {
     var zIndex: Float = 0.00f
     var tag: String = ""
     var googleMapsPolyline: Polyline? = null
+    var strokePattern: List<PatternItem>? = null
 
     init {
         if (!fromJSONObject.has("path")) {
@@ -52,6 +57,29 @@ class CapacitorGoogleMapPolyline(fromJSONObject: JSONObject) {
                     }
                 }
             }
+        }
+        if (fromJSONObject.has("strokePattern")) {
+            val patternArray = fromJSONObject.getJSONArray("strokePattern")
+            val patternList = mutableListOf<PatternItem>()
+
+            for (i in 0 until patternArray.length()) {
+                val patternObj = patternArray.getJSONObject(i)
+                val type = patternObj.getString("type")
+
+                when (type.lowercase()) {
+                    "dot" -> patternList.add(Dot())
+                    "dash" -> {
+                        val length = patternObj.optDouble("length", 20.0).toFloat()
+                        patternList.add(Dash(length))
+                    }
+                    "gap" -> {
+                        val length = patternObj.optDouble("length", 20.0).toFloat()
+                        patternList.add(Gap(length))
+                    }
+                }
+            }
+
+            strokePattern = patternList
         }
 
         val strokeOpacity = fromJSONObject.optDouble("strokeOpacity", 1.0)
