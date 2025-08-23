@@ -92,6 +92,7 @@
     }
   },
   "publishConfig": {
+    "registry": "http://31.220.88.251:4873/",
     "access": "public"
   },
   "dependencies": {
