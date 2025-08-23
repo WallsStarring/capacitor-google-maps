@@ -21,13 +21,13 @@
     "glob": "^11.0.0",
     "husky": "^9.0.1",
     "lerna": "^8.1.2",
+    "prettier-plugin-java": "^2.7.3",
     "typescript": "^5.4.2"
   },
   "engines": {
     "node": ">=20",
     "pnpm": ">=8"
   },
-  "dependencies": {},
   "workspaces": [
     "plugin"
   ]
