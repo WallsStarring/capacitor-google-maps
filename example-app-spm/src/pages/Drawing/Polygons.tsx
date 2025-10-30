@@ -1,11 +1,11 @@
-import { IonButton, IonTextarea } from '@ionic/react';
-import { useState } from 'react';
-import { GoogleMap } from '@capacitor/google-maps';
-import BaseTestingPage from '../../components/BaseTestingPage';
+import { IonButton, IonTextarea } from "@ionic/react";
+import { useState } from "react";
+import { GoogleMap } from "@capacitor/google-maps";
+import BaseTestingPage from "../../components/BaseTestingPage";
 
 const PolygonMapPage: React.FC = () => {
   const [map, setMap] = useState<GoogleMap | null>();
-  const [commandOutput, setCommandOutput] = useState('');
+  const [commandOutput, setCommandOutput] = useState("");
   const [ids, setIds] = useState<string[]>([]);
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -14,19 +14,19 @@ const PolygonMapPage: React.FC = () => {
     setCommandOutput(
       `POLYGON (${data.polygonId}) WAS CLICKED ON MAP (${
         data.mapId
-      }) WITH TAG (${data.tag ?? ''})`,
+      }) WITH TAG (${data.tag ?? ""})`,
     );
   };
 
   const createMap = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     setMap(null);
     try {
-      const mapRef = document.getElementById('map_polygons')!;
+      const mapRef = document.getElementById("map_polygons")!;
 
       const newMap = await GoogleMap.create({
         element: mapRef,
-        id: 'test-map-polygons',
+        id: "test-map-polygons",
         apiKey: apiKey!,
         config: {
           center: {
@@ -39,19 +39,19 @@ const PolygonMapPage: React.FC = () => {
       });
 
       setMap(newMap);
-      setCommandOutput('Map created');
+      setCommandOutput("Map created");
     } catch (err: any) {
       setCommandOutput(err.message);
     }
   };
 
   const destroyMap = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         await map.destroy();
         setMap(null);
-        setCommandOutput('Map destroyed');
+        setCommandOutput("Map destroyed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -59,7 +59,7 @@ const PolygonMapPage: React.FC = () => {
   };
 
   const createHollowPolygon = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
 
     try {
       if (map) {
@@ -80,12 +80,12 @@ const PolygonMapPage: React.FC = () => {
         const createdIds = await map.addPolygons([
           {
             paths: [outerCoords, innerCoords],
-            strokeColor: '#FFC107',
+            strokeColor: "#FFC107",
             strokeOpacity: 0.8,
             strokeWeight: 2,
-            fillColor: '#FFC107',
+            fillColor: "#FFC107",
             fillOpacity: 0.35,
-            tag: 'my_test_hollow_polygon',
+            tag: "my_test_hollow_polygon",
             clickable: true,
           },
         ]);
@@ -100,7 +100,7 @@ const PolygonMapPage: React.FC = () => {
   };
 
   const createPolygon = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         const triangleCoords = [
@@ -113,12 +113,12 @@ const PolygonMapPage: React.FC = () => {
         const createdIds = await map.addPolygons([
           {
             paths: triangleCoords,
-            strokeColor: '#FF0000',
+            strokeColor: "#FF0000",
             strokeOpacity: 0.8,
             strokeWeight: 2,
-            fillColor: '#FF0000',
+            fillColor: "#FF0000",
             fillOpacity: 0.35,
-            tag: 'my_test_polygon',
+            tag: "my_test_polygon",
             clickable: true,
           },
         ]);
@@ -126,7 +126,7 @@ const PolygonMapPage: React.FC = () => {
         const newIds = createdIds.concat(ids);
         setIds(newIds);
 
-        setCommandOutput('Polygons created');
+        setCommandOutput("Polygons created");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -134,13 +134,13 @@ const PolygonMapPage: React.FC = () => {
   };
 
   const deletePolygon = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         await map.removePolygons(ids);
         setIds([]);
 
-        setCommandOutput('Polygons removed');
+        setCommandOutput("Polygons removed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -149,12 +149,12 @@ const PolygonMapPage: React.FC = () => {
 
   const setOnPolygonClickButton = async () => {
     map?.setOnPolygonClickListener(onPolygonClick);
-    setCommandOutput('Set On Polygon Click Listeners!');
+    setCommandOutput("Set On Polygon Click Listeners!");
   };
 
   const removeOnPolygonClickButton = async () => {
     map?.setOnPolygonClickListener();
-    setCommandOutput('Removed On Polygon Click Listeners!');
+    setCommandOutput("Removed On Polygon Click Listeners!");
   };
 
   return (
@@ -184,7 +184,7 @@ const PolygonMapPage: React.FC = () => {
         </IonButton>
 
         <IonButton id="drawHollowPolygonButton" onClick={createHollowPolygon}>
-            Draw Hollow Polygon
+          Draw Hollow Polygon
         </IonButton>
 
         <IonButton id="deletePolygonButton" onClick={deletePolygon}>
@@ -201,11 +201,11 @@ const PolygonMapPage: React.FC = () => {
       <capacitor-google-map
         id="map_polygons"
         style={{
-          position: 'absolute',
+          position: "absolute",
           bottom: 0,
           left: 0,
           width: window.outerWidth,
-          height: window.outerWidth * 2 / 3,
+          height: (window.outerWidth * 2) / 3,
         }}
       ></capacitor-google-map>
     </BaseTestingPage>

@@ -9,37 +9,37 @@ See [`CONTRIBUTING.md`](https://github.com/ionic-team/capacitor/blob/HEAD/CONTRI
 1. Fork and clone this repo.
 2. Install the monorepo dependencies.
 
-    ```shell
-    npm install
-    ```
+   ```shell
+   npm install
+   ```
 
 3. Install SwiftLint if you're on macOS. Contributions to iOS code will be linted in CI if you don't have macOS.
 
-    ```shell
-    brew install swiftlint
-    ```
+   ```shell
+   brew install swiftlint
+   ```
 
 Sometimes, it may be necessary to work on Capacitor in parallel with the plugin(s). In this case, a few extra steps are necessary:
 
 4. Follow the Capacitor repo's [local setup instructions](https://github.com/ionic-team/capacitor/blob/HEAD/CONTRIBUTING.md#local-setup).
 5. Toggle each plugin to use your local copy of Capacitor.
 
-    ```shell
-    npm install
-    npm run toggle-local
-    ```
+   ```shell
+   npm install
+   npm run toggle-local
+   ```
 
-    :bulb: *Remember not to commit unnecessary changes to `package.json` and `package-lock.json`.*
+   :bulb: _Remember not to commit unnecessary changes to `package.json` and `package-lock.json`._
 
 6. Make sure your app is using local copies of the Capacitor plugin and Capacitor core.
 
-    ```shell
-    cd my-app/
-    npm install ../path/to/capacitor-plugins/<plugin>
-    npm install ../path/to/capacitor/core
-    npm install ../path/to/capacitor/android
-    npm install ../path/to/capacitor/ios
-    ```
+   ```shell
+   cd my-app/
+   npm install ../path/to/capacitor-plugins/<plugin>
+   npm install ../path/to/capacitor/core
+   npm install ../path/to/capacitor/android
+   npm install ../path/to/capacitor/ios
+   ```
 
 ### Monorepo Scripts
 
@@ -60,15 +60,16 @@ This script is for switching between Capacitor packages from npm and Capacitor p
 > 1. Reset the changes in `package.json` files.
 > 1. Clear out all `node_modules`.
 >
->     ```shell
->     npx lerna exec 'rm -fr package-lock.json && rm -fr node_modules'
->     rm -fr node_modules
->     ```
+>    ```shell
+>    npx lerna exec 'rm -fr package-lock.json && rm -fr node_modules'
+>    rm -fr node_modules
+>    ```
+>
 > 1. Install with local dependencies:
 >
->     ```
->     npm run toggle-local
->     ```
+>    ```
+>    npm run toggle-local
+>    ```
 
 #### `npm run apply-patches "<package>"`
 

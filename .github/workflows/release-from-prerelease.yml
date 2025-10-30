@@ -16,21 +16,21 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.CAP_GH_RELEASE_TOKEN }}
 
-      - name: 'Setup Tools'
+      - name: "Setup Tools"
         uses: ./.github/actions/setup-tools
 
       - name: "NPM Identity"
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" >> ~/.npmrc
           npm whoami
-          
+
       - name: "Git Config"
         run: |
           git config user.name "Github Workflow (on behalf of ${{ github.actor }})"
           git config user.email "users.noreply.github.com"
 
       - name: Version & Publish
-        env: 
+        env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
           GH_TOKEN: ${{ secrets.CAP_GH_RELEASE_TOKEN }}
         run: |

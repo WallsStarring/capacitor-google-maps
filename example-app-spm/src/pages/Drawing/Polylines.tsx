@@ -1,11 +1,11 @@
-import { IonButton, IonTextarea } from '@ionic/react';
-import { useState } from 'react';
-import { GoogleMap } from '@capacitor/google-maps';
-import BaseTestingPage from '../../components/BaseTestingPage';
+import { IonButton, IonTextarea } from "@ionic/react";
+import { useState } from "react";
+import { GoogleMap } from "@capacitor/google-maps";
+import BaseTestingPage from "../../components/BaseTestingPage";
 
 const PolylineMapPage: React.FC = () => {
   const [map, setMap] = useState<GoogleMap | null>();
-  const [commandOutput, setCommandOutput] = useState('');
+  const [commandOutput, setCommandOutput] = useState("");
   const [ids, setIds] = useState<string[]>([]);
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -14,19 +14,19 @@ const PolylineMapPage: React.FC = () => {
     setCommandOutput(
       `POLYLINE (${data.polylineId}) WAS CLICKED ON MAP (${
         data.mapId
-      }) WITH TAG (${data.tag ?? ''})`,
+      }) WITH TAG (${data.tag ?? ""})`,
     );
   };
 
   const createMap = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     setMap(null);
     try {
-      const mapRef = document.getElementById('map_polylines')!;
+      const mapRef = document.getElementById("map_polylines")!;
 
       const newMap = await GoogleMap.create({
         element: mapRef,
-        id: 'test-map-polylines',
+        id: "test-map-polylines",
         apiKey: apiKey!,
         config: {
           center: {
@@ -39,19 +39,19 @@ const PolylineMapPage: React.FC = () => {
       });
 
       setMap(newMap);
-      setCommandOutput('Map created');
+      setCommandOutput("Map created");
     } catch (err: any) {
       setCommandOutput(err.message);
     }
   };
 
   const destroyMap = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         await map.destroy();
         setMap(null);
-        setCommandOutput('Map destroyed');
+        setCommandOutput("Map destroyed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -59,7 +59,7 @@ const PolylineMapPage: React.FC = () => {
   };
 
   const createPolyline = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         const sampleLines: google.maps.LatLngLiteral[] = [
@@ -72,24 +72,24 @@ const PolylineMapPage: React.FC = () => {
         const createdIds = await map.addPolylines([
           {
             path: sampleLines,
-            strokeColor: '#ffdd00',
+            strokeColor: "#ffdd00",
             strokeOpacity: 1.0,
             strokeWeight: 2,
             geodesic: true,
-            tag: 'my_polyline',
+            tag: "my_polyline",
             clickable: true,
             styleSpans: [
-              { color: '#85892D' },
-              { color: '#0000FF' },
-              { color: '#FFF700' },
-              { color: '#FF99CC' },
+              { color: "#85892D" },
+              { color: "#0000FF" },
+              { color: "#FFF700" },
+              { color: "#FF99CC" },
             ],
           },
         ]);
 
         setIds(createdIds);
 
-        setCommandOutput('Polyline created');
+        setCommandOutput("Polyline created");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -97,7 +97,7 @@ const PolylineMapPage: React.FC = () => {
   };
 
   const deletePolyline = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         await map.removePolylines(ids);
@@ -110,12 +110,12 @@ const PolylineMapPage: React.FC = () => {
 
   const setOnPolylineClickButton = async () => {
     map?.setOnPolylineClickListener(onPolylineClick);
-    setCommandOutput('Set On Polyline Click Listeners!');
+    setCommandOutput("Set On Polyline Click Listeners!");
   };
 
   const removeOnPolylineClickButton = async () => {
     map?.setOnPolylineClickListener();
-    setCommandOutput('Removed On Polyline Click Listeners!');
+    setCommandOutput("Removed On Polyline Click Listeners!");
   };
 
   return (
@@ -158,11 +158,11 @@ const PolylineMapPage: React.FC = () => {
       <capacitor-google-map
         id="map_polylines"
         style={{
-          position: 'absolute',
+          position: "absolute",
           bottom: 0,
           left: 0,
           width: window.outerWidth,
-          height: window.outerWidth * 2 / 3,
+          height: (window.outerWidth * 2) / 3,
         }}
       ></capacitor-google-map>
     </BaseTestingPage>

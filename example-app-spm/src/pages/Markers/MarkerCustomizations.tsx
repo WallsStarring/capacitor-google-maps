@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { GoogleMap, Marker } from '@capacitor/google-maps';
-import { IonButton, IonTextarea } from '@ionic/react';
+import { useState } from "react";
+import { GoogleMap, Marker } from "@capacitor/google-maps";
+import { IonButton, IonTextarea } from "@ionic/react";
 
-import BaseTestingPage from '../../components/BaseTestingPage';
+import BaseTestingPage from "../../components/BaseTestingPage";
 
 const MarkerCustomizations: React.FC = () => {
   const [map, setMap] = useState<GoogleMap | null>(null);
   const [markerIds, setMarkerIds] = useState<string[]>([]);
-  const [commandOutput, setCommandOutput] = useState('');
+  const [commandOutput, setCommandOutput] = useState("");
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
@@ -17,11 +17,11 @@ const MarkerCustomizations: React.FC = () => {
 
   async function createMap() {
     try {
-      const element = document.getElementById('map_marker_custom');
+      const element = document.getElementById("map_marker_custom");
       if (element !== null) {
         const newMap = await GoogleMap.create({
           element: element,
-          id: 'test-map-marker-custom',
+          id: "test-map-marker-custom",
           apiKey: apiKey!,
           config: {
             center: {
@@ -34,7 +34,7 @@ const MarkerCustomizations: React.FC = () => {
 
         setMap(newMap);
 
-        setCommandOutput('Map created');
+        setCommandOutput("Map created");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -44,7 +44,7 @@ const MarkerCustomizations: React.FC = () => {
   const addMarkerColor = async () => {
     try {
       if (!map) {
-        throw new Error('map not created');
+        throw new Error("map not created");
       }
 
       const id = await map.addMarker({
@@ -68,7 +68,7 @@ const MarkerCustomizations: React.FC = () => {
         zoom: 9,
       });
       setMarkerIds(markerIds.concat([id]));
-      setCommandOutput('1 color marker added');
+      setCommandOutput("1 color marker added");
     } catch (err: any) {
       setCommandOutput(err.message);
     }
@@ -77,7 +77,7 @@ const MarkerCustomizations: React.FC = () => {
   const addMarkerImage = async () => {
     try {
       if (!map) {
-        throw new Error('map not created');
+        throw new Error("map not created");
       }
 
       const id = await map.addMarker({
@@ -85,7 +85,7 @@ const MarkerCustomizations: React.FC = () => {
           lat: 43.512098,
           lng: -96.739352,
         },
-        iconUrl: 'assets/icon/pin.png',
+        iconUrl: "assets/icon/pin.png",
         iconSize: {
           width: 30,
           height: 30,
@@ -103,7 +103,7 @@ const MarkerCustomizations: React.FC = () => {
       });
 
       setMarkerIds(markerIds.concat([id]));
-      setCommandOutput('1 image marker added');
+      setCommandOutput("1 image marker added");
     } catch (err: any) {
       setCommandOutput(err.message);
     }
@@ -112,7 +112,7 @@ const MarkerCustomizations: React.FC = () => {
   const addMarkerSVG = async () => {
     try {
       if (!map) {
-        throw new Error('map not created');
+        throw new Error("map not created");
       }
 
       const id = await map.addMarker({
@@ -120,7 +120,7 @@ const MarkerCustomizations: React.FC = () => {
           lat: 43.512098,
           lng: -96.739352,
         },
-        iconUrl: 'assets/icon/marker.svg',
+        iconUrl: "assets/icon/marker.svg",
         iconSize: {
           width: 30,
           height: 30,
@@ -138,7 +138,7 @@ const MarkerCustomizations: React.FC = () => {
       });
 
       setMarkerIds(markerIds.concat([id]));
-      setCommandOutput('1 image marker added');
+      setCommandOutput("1 image marker added");
     } catch (err: any) {
       setCommandOutput(err.message);
     }
@@ -147,7 +147,7 @@ const MarkerCustomizations: React.FC = () => {
   const addMultipleImageMarkers = async () => {
     try {
       if (!map) {
-        throw new Error('map not created');
+        throw new Error("map not created");
       }
       const markers: Marker[] = [
         {
@@ -155,9 +155,9 @@ const MarkerCustomizations: React.FC = () => {
             lat: 47.6,
             lng: -122.33,
           },
-          title: 'Title 1',
-          snippet: 'Snippet 1',
-          iconUrl: 'assets/icon/pin.png',
+          title: "Title 1",
+          snippet: "Snippet 1",
+          iconUrl: "assets/icon/pin.png",
           iconSize: {
             width: 30,
             height: 30,
@@ -168,9 +168,9 @@ const MarkerCustomizations: React.FC = () => {
             lat: 47.6,
             lng: -122.46,
           },
-          title: 'Title 2',
-          snippet: 'Snippet 2',
-          iconUrl: 'assets/icon/pin.png',
+          title: "Title 2",
+          snippet: "Snippet 2",
+          iconUrl: "assets/icon/pin.png",
           iconSize: {
             width: 30,
             height: 30,
@@ -181,9 +181,9 @@ const MarkerCustomizations: React.FC = () => {
             lat: 47.3,
             lng: -122.46,
           },
-          title: 'Title 3',
-          snippet: 'Snippet 3',
-          iconUrl: 'assets/icon/pin.png',
+          title: "Title 3",
+          snippet: "Snippet 3",
+          iconUrl: "assets/icon/pin.png",
           iconSize: {
             width: 30,
             height: 30,
@@ -194,9 +194,9 @@ const MarkerCustomizations: React.FC = () => {
             lat: 47.2,
             lng: -122.23,
           },
-          title: 'Title 4',
-          snippet: 'Snippet 4',
-          iconUrl: 'assets/icon/pin.png',
+          title: "Title 4",
+          snippet: "Snippet 4",
+          iconUrl: "assets/icon/pin.png",
           iconSize: {
             width: 30,
             height: 30,
@@ -223,7 +223,7 @@ const MarkerCustomizations: React.FC = () => {
   const addMultipleColorMarkers = async () => {
     try {
       if (!map) {
-        throw new Error('map not created');
+        throw new Error("map not created");
       }
       const markers: Marker[] = [
         {
@@ -231,8 +231,8 @@ const MarkerCustomizations: React.FC = () => {
             lat: 47.6,
             lng: -122.33,
           },
-          title: 'Title 1',
-          snippet: 'Snippet 1',
+          title: "Title 1",
+          snippet: "Snippet 1",
           tintColor: {
             r: getRandom(),
             g: getRandom(),
@@ -245,8 +245,8 @@ const MarkerCustomizations: React.FC = () => {
             lat: 47.6,
             lng: -122.46,
           },
-          title: 'Title 2',
-          snippet: 'Snippet 2',
+          title: "Title 2",
+          snippet: "Snippet 2",
           tintColor: {
             r: getRandom(),
             g: getRandom(),
@@ -259,8 +259,8 @@ const MarkerCustomizations: React.FC = () => {
             lat: 47.3,
             lng: -122.46,
           },
-          title: 'Title 3',
-          snippet: 'Snippet 3',
+          title: "Title 3",
+          snippet: "Snippet 3",
           tintColor: {
             r: getRandom(),
             g: getRandom(),
@@ -273,8 +273,8 @@ const MarkerCustomizations: React.FC = () => {
             lat: 47.2,
             lng: -122.23,
           },
-          title: 'Title 4',
-          snippet: 'Snippet 4',
+          title: "Title 4",
+          snippet: "Snippet 4",
           tintColor: {
             r: getRandom(),
             g: getRandom(),
@@ -303,7 +303,7 @@ const MarkerCustomizations: React.FC = () => {
   const removeAllMarkers = async () => {
     try {
       if (!map) {
-        throw new Error('map not created');
+        throw new Error("map not created");
       }
 
       let count = markerIds.length;
@@ -318,11 +318,11 @@ const MarkerCustomizations: React.FC = () => {
   };
 
   async function destroyMap() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         await map.destroy();
-        setCommandOutput('Map destroyed');
+        setCommandOutput("Map destroyed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -356,10 +356,7 @@ const MarkerCustomizations: React.FC = () => {
         >
           Add Multiple Color Markers
         </IonButton>
-        <IonButton
-          id="removeAllMarkersButton"
-          onClick={removeAllMarkers}
-        >
+        <IonButton id="removeAllMarkersButton" onClick={removeAllMarkers}>
           Remove All Markers
         </IonButton>
         <IonButton id="destroyMapButton" onClick={destroyMap}>
@@ -372,7 +369,7 @@ const MarkerCustomizations: React.FC = () => {
       <capacitor-google-map
         id="map_marker_custom"
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: window.innerHeight - 150,
           left: 0,
           width: window.innerWidth,

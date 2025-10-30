@@ -1,28 +1,25 @@
-import { useState } from 'react';
-import { GoogleMap } from '@capacitor/google-maps';
-import {
-  IonButton,
-  IonTextarea,
-} from '@ionic/react';
-import BaseTestingPage from '../../components/BaseTestingPage';
+import { useState } from "react";
+import { GoogleMap } from "@capacitor/google-maps";
+import { IonButton, IonTextarea } from "@ionic/react";
+import BaseTestingPage from "../../components/BaseTestingPage";
 
 const ResizeMapPage: React.FC = () => {
   const [map, setMap] = useState<GoogleMap | null>();
-  const [commandOutput, setCommandOutput] = useState('');
+  const [commandOutput, setCommandOutput] = useState("");
   const [mapWidth, setMapWidth] = useState<number>(window.outerWidth);
   const [mapHeight, setMapHeight] = useState<number>(window.outerWidth);
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   async function createMap() {
-    setCommandOutput('');
+    setCommandOutput("");
     setMap(null);
     try {
-      const mapRef = document.getElementById('map_resize')!;
+      const mapRef = document.getElementById("map_resize")!;
 
       const newMap = await GoogleMap.create({
         element: mapRef,
-        id: 'test-map-resize',
+        id: "test-map-resize",
         apiKey: apiKey!,
         config: {
           center: {
@@ -35,19 +32,19 @@ const ResizeMapPage: React.FC = () => {
       });
 
       setMap(newMap);
-      setCommandOutput('Map created');
+      setCommandOutput("Map created");
     } catch (err: any) {
       setCommandOutput(err.message);
     }
   }
 
   async function destroyMap() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         await map.destroy();
         setMap(null);
-        setCommandOutput('Map destroyed');
+        setCommandOutput("Map destroyed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -73,8 +70,12 @@ const ResizeMapPage: React.FC = () => {
         <IonButton expand="block" id="destroyMapButton" onClick={destroyMap}>
           Destroy Map
         </IonButton>
-        <IonButton expand="block" id="enlargeMap" onClick={enlargeMap}>Enlarge Map</IonButton>
-        <IonButton expand="block" id="shrinkMap" onClick={shrinkMap}>Shrink Map</IonButton>
+        <IonButton expand="block" id="enlargeMap" onClick={enlargeMap}>
+          Enlarge Map
+        </IonButton>
+        <IonButton expand="block" id="shrinkMap" onClick={shrinkMap}>
+          Shrink Map
+        </IonButton>
       </div>
       <div>
         <IonTextarea
@@ -86,7 +87,7 @@ const ResizeMapPage: React.FC = () => {
       <capacitor-google-map
         id="map_resize"
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: window.innerHeight - window.outerWidth / 2,
           left: 0,
           width: mapWidth,

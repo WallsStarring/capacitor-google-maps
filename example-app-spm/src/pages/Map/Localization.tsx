@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { GoogleMap } from '@capacitor/google-maps';
-import { IonButton, IonTextarea } from '@ionic/react';
-import BaseTestingPage from '../../components/BaseTestingPage';
+import { useState } from "react";
+import { GoogleMap } from "@capacitor/google-maps";
+import { IonButton, IonTextarea } from "@ionic/react";
+import BaseTestingPage from "../../components/BaseTestingPage";
 
 const LocalizationPage: React.FC = () => {
   const [maps, setMaps] = useState<GoogleMap[]>([]);
-  const [commandOutput, setCommandOutput] = useState('');
+  const [commandOutput, setCommandOutput] = useState("");
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   const onMapReady = (data: any) => {
@@ -25,16 +25,16 @@ const LocalizationPage: React.FC = () => {
   };
 
   async function createMaps() {
-    setCommandOutput('');
+    setCommandOutput("");
     setMaps([]);
     try {
-      const mapRef1 = document.getElementById('map1_localization')!;
-      const mapRef2 = document.getElementById('map2_localization')!;
+      const mapRef1 = document.getElementById("map1_localization")!;
+      const mapRef2 = document.getElementById("map2_localization")!;
 
       const newMap1 = await GoogleMap.create(
         {
           element: mapRef1,
-          id: 'test-map-localization1',
+          id: "test-map-localization1",
           apiKey: apiKey!,
           config: {
             center: {
@@ -44,8 +44,8 @@ const LocalizationPage: React.FC = () => {
             zoom: 8,
           },
           forceCreate: true,
-          region: 'JP',
-          language: 'ja',
+          region: "JP",
+          language: "ja",
         },
         onMapReady,
       );
@@ -53,7 +53,7 @@ const LocalizationPage: React.FC = () => {
       const newMap2 = await GoogleMap.create(
         {
           element: mapRef2,
-          id: 'test-map2-localization1',
+          id: "test-map2-localization1",
           apiKey: apiKey!,
           config: {
             center: {
@@ -68,20 +68,20 @@ const LocalizationPage: React.FC = () => {
       );
 
       setMaps([newMap1, newMap2]);
-      setCommandOutput('Maps created');
+      setCommandOutput("Maps created");
     } catch (err: any) {
       setCommandOutput(err.message);
     }
   }
 
   async function setOnMapClickListeners() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (maps) {
         for (let map of maps) {
           map.setOnMapClickListener(onMapClick);
         }
-        setCommandOutput('Map Click Listeners Set');
+        setCommandOutput("Map Click Listeners Set");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -89,13 +89,13 @@ const LocalizationPage: React.FC = () => {
   }
 
   async function setOnMapBoundsChangedListeners() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (maps) {
         for (let map of maps) {
           map.setOnBoundsChangedListener(onMapBoundsChanged);
         }
-        setCommandOutput('Map Bounds Changed Listeners Set');
+        setCommandOutput("Map Bounds Changed Listeners Set");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -103,14 +103,14 @@ const LocalizationPage: React.FC = () => {
   }
 
   async function removeOnMapClickListeners() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (maps) {
         for (let map of maps) {
           map.removeAllMapListeners();
         }
 
-        setCommandOutput('Map Click Listeners Destroyed');
+        setCommandOutput("Map Click Listeners Destroyed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -118,14 +118,14 @@ const LocalizationPage: React.FC = () => {
   }
 
   async function destroyMaps() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (maps) {
         for (let map of maps) {
           await map.destroy();
         }
         setMaps([]);
-        setCommandOutput('Maps destroyed');
+        setCommandOutput("Maps destroyed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -133,7 +133,7 @@ const LocalizationPage: React.FC = () => {
   }
 
   async function getBounds() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       const bounds = await maps[0].getMapBounds();
       setCommandOutput(JSON.stringify(bounds));
@@ -182,7 +182,7 @@ const LocalizationPage: React.FC = () => {
       <capacitor-google-map
         id="map1_localization"
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: window.innerHeight - window.outerWidth / 2,
           left: 0,
           width: window.outerWidth / 2,
@@ -192,7 +192,7 @@ const LocalizationPage: React.FC = () => {
       <capacitor-google-map
         id="map2_localization"
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: window.innerHeight - window.outerWidth / 2,
           left: window.outerWidth / 2,
           width: window.outerWidth / 2,

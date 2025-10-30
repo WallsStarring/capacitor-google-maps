@@ -1,9 +1,18 @@
-import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle } from '@ionic/react';
-import { useLocation } from 'react-router-dom';
-import './Menu.css';
-import { useEffect, useState } from 'react';
-import { getMenuList, RouteGroup } from '../routes';
-import { homeOutline } from 'ionicons/icons';
+import {
+  IonContent,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonMenu,
+  IonMenuToggle,
+} from "@ionic/react";
+import { useLocation } from "react-router-dom";
+import "./Menu.css";
+import { useEffect, useState } from "react";
+import { getMenuList, RouteGroup } from "../routes";
+import { homeOutline } from "ionicons/icons";
 
 const Menu: React.FC = () => {
   const location = useLocation();
@@ -19,7 +28,7 @@ const Menu: React.FC = () => {
         <IonList>
           <IonMenuToggle autoHide={false}>
             <IonItem
-              className={location.pathname === '/home' ? 'selected' : ''}
+              className={location.pathname === "/home" ? "selected" : ""}
               routerLink="/home"
               routerDirection="none"
               lines="none"
@@ -38,13 +47,21 @@ const Menu: React.FC = () => {
                 return (
                   <IonMenuToggle key={index} autoHide={false}>
                     <IonItem
-                      className={location.pathname === routeDescription.url ? 'selected' : ''}
+                      className={
+                        location.pathname === routeDescription.url
+                          ? "selected"
+                          : ""
+                      }
                       routerLink={routeDescription.url}
                       routerDirection="none"
                       lines="none"
                       detail={false}
                     >
-                      <IonIcon slot="start" ios={routeDescription.iosIcon} md={routeDescription.mdIcon} />
+                      <IonIcon
+                        slot="start"
+                        ios={routeDescription.iosIcon}
+                        md={routeDescription.mdIcon}
+                      />
                       <IonLabel>{routeDescription.title}</IonLabel>
                     </IonItem>
                   </IonMenuToggle>

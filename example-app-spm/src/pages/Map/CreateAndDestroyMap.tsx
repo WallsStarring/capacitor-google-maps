@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { GoogleMap } from '@capacitor/google-maps';
-import { IonButton, IonTextarea } from '@ionic/react';
-import BaseTestingPage from '../../components/BaseTestingPage';
+import { useState } from "react";
+import { GoogleMap } from "@capacitor/google-maps";
+import { IonButton, IonTextarea } from "@ionic/react";
+import BaseTestingPage from "../../components/BaseTestingPage";
 
 const CreateAndDestroyMapPage: React.FC = () => {
   const [maps, setMaps] = useState<GoogleMap[]>([]);
-  const [commandOutput, setCommandOutput] = useState('');
+  const [commandOutput, setCommandOutput] = useState("");
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   const onMapReady = (data: any) => {
@@ -18,23 +18,23 @@ const CreateAndDestroyMapPage: React.FC = () => {
     );
   };
 
-  const onMapBoundsChanged = (data: any) => {    
+  const onMapBoundsChanged = (data: any) => {
     setCommandOutput(
-        `MAP (${data.mapId}) BOUNDS CHANGED @ (${JSON.stringify(data.bounds)})`,
-      );
-  }
+      `MAP (${data.mapId}) BOUNDS CHANGED @ (${JSON.stringify(data.bounds)})`,
+    );
+  };
 
   async function createMaps() {
-    setCommandOutput('');
+    setCommandOutput("");
     setMaps([]);
     try {
-      const mapRef1 = document.getElementById('map1_create_destroy')!;
-      const mapRef2 = document.getElementById('map2_create_destroy')!;
+      const mapRef1 = document.getElementById("map1_create_destroy")!;
+      const mapRef2 = document.getElementById("map2_create_destroy")!;
 
       const newMap1 = await GoogleMap.create(
         {
           element: mapRef1,
-          id: 'test-map-create-destroy1',
+          id: "test-map-create-destroy1",
           apiKey: apiKey!,
           config: {
             center: {
@@ -51,7 +51,7 @@ const CreateAndDestroyMapPage: React.FC = () => {
       const newMap2 = await GoogleMap.create(
         {
           element: mapRef2,
-          id: 'test-map-create-destroy2',
+          id: "test-map-create-destroy2",
           apiKey: apiKey!,
           config: {
             center: {
@@ -66,20 +66,20 @@ const CreateAndDestroyMapPage: React.FC = () => {
       );
 
       setMaps([newMap1, newMap2]);
-      setCommandOutput('Maps created');
+      setCommandOutput("Maps created");
     } catch (err: any) {
       setCommandOutput(err.message);
     }
   }
 
   async function setOnMapClickListeners() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (maps) {
         for (let map of maps) {
           map.setOnMapClickListener(onMapClick);
         }
-        setCommandOutput('Map Click Listeners Set');
+        setCommandOutput("Map Click Listeners Set");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -87,14 +87,14 @@ const CreateAndDestroyMapPage: React.FC = () => {
   }
 
   async function removeOnMapClickListeners() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (maps) {
         for (let map of maps) {
           map.removeAllMapListeners();
         }
 
-        setCommandOutput('Map Click Listeners Destroyed');
+        setCommandOutput("Map Click Listeners Destroyed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -102,7 +102,7 @@ const CreateAndDestroyMapPage: React.FC = () => {
   }
 
   async function disableMapTouchEvents() {
-    setCommandOutput('');
+    setCommandOutput("");
 
     try {
       if (maps) {
@@ -116,7 +116,7 @@ const CreateAndDestroyMapPage: React.FC = () => {
   }
 
   async function enableMapTouchEvents() {
-    setCommandOutput('');
+    setCommandOutput("");
 
     try {
       if (maps) {
@@ -130,14 +130,14 @@ const CreateAndDestroyMapPage: React.FC = () => {
   }
 
   async function destroyMaps() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (maps) {
         for (let map of maps) {
           await map.destroy();
         }
         setMaps([]);
-        setCommandOutput('Maps destroyed');
+        setCommandOutput("Maps destroyed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -164,10 +164,18 @@ const CreateAndDestroyMapPage: React.FC = () => {
         >
           Remove On Map Click Listeners
         </IonButton>
-        <IonButton expand='block' id="enableTouchEvents" onClick={enableMapTouchEvents}>
+        <IonButton
+          expand="block"
+          id="enableTouchEvents"
+          onClick={enableMapTouchEvents}
+        >
           Enable Touch Events
         </IonButton>
-        <IonButton expand='block' id="disableTouchEvents" onClick={disableMapTouchEvents}>
+        <IonButton
+          expand="block"
+          id="disableTouchEvents"
+          onClick={disableMapTouchEvents}
+        >
           Disable Touch Events
         </IonButton>
         <IonButton expand="block" id="destroyMapButton" onClick={destroyMaps}>
@@ -180,7 +188,7 @@ const CreateAndDestroyMapPage: React.FC = () => {
       <capacitor-google-map
         id="map1_create_destroy"
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: window.innerHeight - window.outerWidth / 2,
           left: 0,
           width: window.outerWidth / 2,
@@ -190,7 +198,7 @@ const CreateAndDestroyMapPage: React.FC = () => {
       <capacitor-google-map
         id="map2_create_destroy"
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: window.innerHeight - window.outerWidth / 2,
           left: window.outerWidth / 2,
           width: window.outerWidth / 2,

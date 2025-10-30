@@ -10,6 +10,7 @@ class GoogleMapConfig(fromJSONObject: JSONObject) {
     var width: Int = 0
     var height: Int = 0
     var x: Int = 0
+    var insetTop: Int = 0
     var y: Int = 0
     var center: LatLng = LatLng(0.0, 0.0)
     var googleMapOptions: GoogleMapOptions? = null
@@ -81,6 +82,11 @@ class GoogleMapConfig(fromJSONObject: JSONObject) {
         height = fromJSONObject.getInt("height")
         x = fromJSONObject.getInt("x")
         y = fromJSONObject.getInt("y")
+        if (fromJSONObject.has("insetTop")){
+            insetTop = fromJSONObject.getInt("insetTop")
+            y += insetTop / 3;
+            //height += insetTop;
+        }
 
         val tempZoom = fromJSONObject.getInt("zoom")
         var tempMinZoom = fromJSONObject.optInt("minZoom").takeIf { fromJSONObject.has("minZoom") }

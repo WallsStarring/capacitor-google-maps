@@ -1,8 +1,19 @@
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import {
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonMenuButton,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
 
-const BaseTestingPage: React.FC<{ children?: React.ReactNode; pageTitle: string }> = ({ children, pageTitle }) => {
+const BaseTestingPage: React.FC<{
+  children?: React.ReactNode;
+  pageTitle: string;
+}> = ({ children, pageTitle }) => {
   return (
-    <IonPage style={{background: 'transparent'}}>
+    <IonPage style={{ background: "transparent" }}>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -11,7 +22,11 @@ const BaseTestingPage: React.FC<{ children?: React.ReactNode; pageTitle: string 
           <IonTitle>{pageTitle}</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen scrollEvents={true} style={{background: 'transparent'}}>
+      <IonContent
+        fullscreen
+        scrollEvents={true}
+        style={{ background: "transparent" }}
+      >
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">{pageTitle}</IonTitle>
