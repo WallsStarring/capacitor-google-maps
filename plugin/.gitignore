@@ -69,3 +69,4 @@ DerivedData/
 .netrc
 Package.resolved
 /.build
+tmp_geojson_backup
