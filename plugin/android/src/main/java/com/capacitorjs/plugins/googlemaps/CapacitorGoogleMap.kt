@@ -169,8 +169,8 @@ class CapacitorGoogleMap(
     fun dispatchTouchEvent(event: MotionEvent) {
         CoroutineScope(Dispatchers.Main).launch {
             val offsetViewBounds = getMapBounds()
-
-            val relativeTop = offsetViewBounds.top
+            val insetTop = config.insetTop;
+            val relativeTop = offsetViewBounds.top - insetTop
             val relativeLeft = offsetViewBounds.left
 
             event.setLocation(event.x - relativeLeft, event.y - relativeTop)

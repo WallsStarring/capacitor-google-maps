@@ -3,7 +3,7 @@ name: "Release Dev"
 on:
   push:
     branches:
-      - 'master'
+      - "master"
       # - 'main'
   workflow_dispatch:
 
@@ -14,19 +14,19 @@ jobs:
       CAP_GH_RELEASE_TOKEN: ${{ secrets.CAP_GH_RELEASE_TOKEN }}
 
   lint-test:
-    needs: 'setup'
+    needs: "setup"
     uses: ./.github/workflows/reusable_lint-packages.yml
     secrets:
       CAP_GH_RELEASE_TOKEN: ${{ secrets.CAP_GH_RELEASE_TOKEN }}
 
   build-packages:
-    needs: 'setup'
+    needs: "setup"
     uses: ./.github/workflows/reusable_build-packages.yml
     secrets:
       CAP_GH_RELEASE_TOKEN: ${{ secrets.CAP_GH_RELEASE_TOKEN }}
 
   release-npm-dev:
-    needs: ['build-packages', 'lint-test']
+    needs: ["build-packages", "lint-test"]
     uses: ./.github/workflows/reusable_release-npm.yml
     with:
       create-dev-release: true

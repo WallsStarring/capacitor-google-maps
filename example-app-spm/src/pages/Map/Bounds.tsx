@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { GoogleMap, LatLngBounds } from '@capacitor/google-maps';
+import { useState } from "react";
+import { GoogleMap, LatLngBounds } from "@capacitor/google-maps";
 import {
   IonButton,
   IonCol,
@@ -7,26 +7,26 @@ import {
   IonLabel,
   IonRow,
   IonTextarea,
-} from '@ionic/react';
-import BaseTestingPage from '../../components/BaseTestingPage';
+} from "@ionic/react";
+import BaseTestingPage from "../../components/BaseTestingPage";
 
 const BoundsMapPage: React.FC = () => {
   const [map, setMap] = useState<GoogleMap | null>();
-  const [commandOutput, setCommandOutput] = useState('');
+  const [commandOutput, setCommandOutput] = useState("");
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   async function createMap() {
-    setCommandOutput('');
+    setCommandOutput("");
     setMap(null);
     try {
-      const mapRef = document.getElementById('map_bounds')!;
+      const mapRef = document.getElementById("map_bounds")!;
 
       const newMap = await GoogleMap.create({
         element: mapRef,
-        id: 'test-map-bounds',
+        id: "test-map-bounds",
         apiKey: apiKey!,
         config: {
           center: {
@@ -39,19 +39,19 @@ const BoundsMapPage: React.FC = () => {
       });
 
       setMap(newMap);
-      setCommandOutput('Map created');
+      setCommandOutput("Map created");
     } catch (err: any) {
       setCommandOutput(err.message);
     }
   }
 
   async function destroyMap() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         await map.destroy();
         setMap(null);
-        setCommandOutput('Map destroyed');
+        setCommandOutput("Map destroyed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -59,7 +59,7 @@ const BoundsMapPage: React.FC = () => {
   }
 
   async function getBounds() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       const bounds = await map!.getMapBounds();
       setCommandOutput(JSON.stringify(bounds));
@@ -69,7 +69,7 @@ const BoundsMapPage: React.FC = () => {
   }
 
   async function fitBounds() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       const bounds = new LatLngBounds({
         southwest: {
@@ -92,7 +92,7 @@ const BoundsMapPage: React.FC = () => {
   }
 
   async function boundsContainsPoint() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       const bounds = await map!.getMapBounds();
       const contains = await bounds.contains({
@@ -106,7 +106,7 @@ const BoundsMapPage: React.FC = () => {
   }
 
   async function extendBounds() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       const bounds = await map!.getMapBounds();
       const newBounds = await bounds.extend({
@@ -141,7 +141,7 @@ const BoundsMapPage: React.FC = () => {
               id="latInput"
               type="number"
               value={lat}
-              onIonChange={e => setLat(Number(e.detail.value!))}
+              onIonChange={(e) => setLat(Number(e.detail.value!))}
             ></IonInput>
           </IonCol>
           <IonCol size="3">
@@ -150,7 +150,7 @@ const BoundsMapPage: React.FC = () => {
               id="lngInput"
               type="number"
               value={lng}
-              onIonChange={e => setLng(Number(e.detail.value!))}
+              onIonChange={(e) => setLng(Number(e.detail.value!))}
             ></IonInput>
           </IonCol>
           <IonCol>
@@ -181,7 +181,7 @@ const BoundsMapPage: React.FC = () => {
       <capacitor-google-map
         id="map_bounds"
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: window.innerHeight - window.outerWidth / 2,
           left: 0,
           width: window.outerWidth,

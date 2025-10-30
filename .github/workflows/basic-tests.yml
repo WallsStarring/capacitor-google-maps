@@ -3,17 +3,17 @@ name: "Basic Tests"
 on:
   pull_request:
     types:
-      - 'synchronize'
-      - 'opened'
+      - "synchronize"
+      - "opened"
 
 jobs:
   setup:
     uses: ./.github/workflows/reusable_setup.yml
 
   lint-test:
-    needs: 'setup'
+    needs: "setup"
     uses: ./.github/workflows/reusable_lint-packages.yml
 
   verify-packages:
-    needs: 'setup'
+    needs: "setup"
     uses: ./.github/workflows/reusable_verify-packages.yml

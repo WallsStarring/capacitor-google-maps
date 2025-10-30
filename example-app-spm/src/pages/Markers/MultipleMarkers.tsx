@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { GoogleMap, Marker } from '@capacitor/google-maps';
-import { IonButton, IonTextarea } from '@ionic/react';
-import BaseTestingPage from '../../components/BaseTestingPage';
+import { useState } from "react";
+import { GoogleMap, Marker } from "@capacitor/google-maps";
+import { IonButton, IonTextarea } from "@ionic/react";
+import BaseTestingPage from "../../components/BaseTestingPage";
 
 const MultipleMarkers: React.FC = () => {
   const [map, setMap] = useState<GoogleMap | null>(null);
   const [markerIds, setMarkerIds] = useState<string[]>([]);
-  const [commandOutput, setCommandOutput] = useState('');
-  const [commandOutput2, setCommandOutput2] = useState('');
+  const [commandOutput, setCommandOutput] = useState("");
+  const [commandOutput2, setCommandOutput2] = useState("");
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   const onBoundsChanged = (data: any) => {
@@ -36,7 +36,7 @@ const MultipleMarkers: React.FC = () => {
 
   const onMapClick = (data: any) => {
     setCommandOutput(`MAP CLICKED:  ${JSON.stringify(data)}`);
-    setCommandOutput2('');
+    setCommandOutput2("");
   };
 
   const onMarkerClick = (data: any) => {
@@ -53,11 +53,11 @@ const MultipleMarkers: React.FC = () => {
 
   async function createMap() {
     try {
-      const element = document.getElementById('multipleMarkers_map1');
+      const element = document.getElementById("multipleMarkers_map1");
       if (element !== null) {
         const newMap = await GoogleMap.create({
           element: element,
-          id: 'test-map-multiple-markers',
+          id: "test-map-multiple-markers",
           apiKey: apiKey!,
           config: {
             center: {
@@ -70,12 +70,12 @@ const MultipleMarkers: React.FC = () => {
 
         setMap(newMap);
 
-        setCommandOutput('Map created');
-        setCommandOutput2('');
+        setCommandOutput("Map created");
+        setCommandOutput2("");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
-      setCommandOutput2('');
+      setCommandOutput2("");
     }
   }
 
@@ -90,26 +90,26 @@ const MultipleMarkers: React.FC = () => {
     map?.setOnMarkerClickListener(onMarkerClick);
     map?.setOnMyLocationButtonClickListener(onMyLocationButtonClick);
     map?.setOnMyLocationClickListener(onMyLocationClick);
-    setCommandOutput('Set Event Listeners!');
-    setCommandOutput2('');
+    setCommandOutput("Set Event Listeners!");
+    setCommandOutput2("");
   }
 
   async function removeEventListeners() {
     map?.removeAllMapListeners();
-    setCommandOutput('Removed Event Listeners!');
-    setCommandOutput2('');
+    setCommandOutput("Removed Event Listeners!");
+    setCommandOutput2("");
   }
 
   async function enableClustering() {
     try {
       if (map) {
         await map.enableClustering(2);
-        setCommandOutput('marker clustering enabled');
-        setCommandOutput2('');
+        setCommandOutput("marker clustering enabled");
+        setCommandOutput2("");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
-      setCommandOutput2('');
+      setCommandOutput2("");
     }
   }
 
@@ -122,44 +122,44 @@ const MultipleMarkers: React.FC = () => {
               lat: 47.6,
               lng: -122.33,
             },
-            title: 'Title 1',
-            snippet: 'Snippet 1',
+            title: "Title 1",
+            snippet: "Snippet 1",
           },
           {
             coordinate: {
               lat: 47.6,
               lng: -122.46,
             },
-            title: 'Title 2',
-            snippet: 'Snippet 2',
+            title: "Title 2",
+            snippet: "Snippet 2",
           },
           {
             coordinate: {
               lat: 47.3,
               lng: -122.46,
             },
-            title: 'Title 3',
-            snippet: 'Snippet 3',
+            title: "Title 3",
+            snippet: "Snippet 3",
           },
           {
             coordinate: {
               lat: 47.2,
               lng: -122.23,
             },
-            title: 'Title 4',
-            snippet: 'Snippet 4',
+            title: "Title 4",
+            snippet: "Snippet 4",
           },
         ];
 
         const ids = await map.addMarkers(markers);
-        console.log('@@IDS: ', ids);
+        console.log("@@IDS: ", ids);
         setMarkerIds(ids);
         setCommandOutput(`${ids.length} markers added`);
-        setCommandOutput2('');
+        setCommandOutput2("");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
-      setCommandOutput2('');
+      setCommandOutput2("");
     }
   }
 
@@ -168,12 +168,12 @@ const MultipleMarkers: React.FC = () => {
       if (map) {
         await map.removeMarkers(markerIds);
         setCommandOutput(`${markerIds.length} markers removed`);
-        setCommandOutput2('');
+        setCommandOutput2("");
         setMarkerIds([]);
       }
     } catch (err: any) {
       setCommandOutput(err.message);
-      setCommandOutput2('');
+      setCommandOutput2("");
     }
   }
 
@@ -181,26 +181,26 @@ const MultipleMarkers: React.FC = () => {
     try {
       if (map) {
         await map.disableClustering();
-        setCommandOutput('marker clustering disabled');
-        setCommandOutput2('');
+        setCommandOutput("marker clustering disabled");
+        setCommandOutput2("");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
-      setCommandOutput2('');
+      setCommandOutput2("");
     }
   }
 
   async function destroyMap() {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         await map.destroy();
-        setCommandOutput('Map destroyed');
-        setCommandOutput2('');
+        setCommandOutput("Map destroyed");
+        setCommandOutput2("");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
-      setCommandOutput2('');
+      setCommandOutput2("");
     }
   }
 
@@ -262,7 +262,7 @@ const MultipleMarkers: React.FC = () => {
       <capacitor-google-map
         id="multipleMarkers_map1"
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: window.innerHeight - 150,
           left: 0,
           width: window.innerWidth,

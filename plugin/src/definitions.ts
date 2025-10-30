@@ -256,6 +256,10 @@ export interface GoogleMapConfig extends google.maps.MapOptions {
    * inside the limits of the boundary.
    */
   restriction?: google.maps.MapRestriction | null;
+  /**
+   *
+   */
+  insetTop?: number | null;
 }
 
 /**

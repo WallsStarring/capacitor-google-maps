@@ -1,11 +1,11 @@
-import { IonButton, IonTextarea } from '@ionic/react';
-import { useState } from 'react';
-import { Circle, GoogleMap } from '@capacitor/google-maps';
-import BaseTestingPage from '../../components/BaseTestingPage';
+import { IonButton, IonTextarea } from "@ionic/react";
+import { useState } from "react";
+import { Circle, GoogleMap } from "@capacitor/google-maps";
+import BaseTestingPage from "../../components/BaseTestingPage";
 
 const CircleMapPage: React.FC = () => {
   const [map, setMap] = useState<GoogleMap | null>();
-  const [commandOutput, setCommandOutput] = useState('');
+  const [commandOutput, setCommandOutput] = useState("");
   const [ids, setIds] = useState<string[]>([]);
 
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -13,20 +13,20 @@ const CircleMapPage: React.FC = () => {
   const onCircleClick = (data: any) => {
     setCommandOutput(
       `CIRCLE (${data.circleId}) WAS CLICKED ON MAP (${data.mapId}) WITH TAG (${
-        data.tag ?? ''
+        data.tag ?? ""
       })`,
     );
   };
 
   const createMap = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     setMap(null);
     try {
-      const mapRef = document.getElementById('map_circles')!;
+      const mapRef = document.getElementById("map_circles")!;
 
       const newMap = await GoogleMap.create({
         element: mapRef,
-        id: 'test-map-circles',
+        id: "test-map-circles",
         apiKey: apiKey!,
         config: {
           center: { lat: 37.09, lng: -95.712 },
@@ -36,19 +36,19 @@ const CircleMapPage: React.FC = () => {
       });
 
       setMap(newMap);
-      setCommandOutput('Map created');
+      setCommandOutput("Map created");
     } catch (err: any) {
       setCommandOutput(err.message);
     }
   };
 
   const destroyMap = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         await map.destroy();
         setMap(null);
-        setCommandOutput('Map destroyed');
+        setCommandOutput("Map destroyed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -56,7 +56,7 @@ const CircleMapPage: React.FC = () => {
   };
 
   const createCircle = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         interface City {
@@ -85,12 +85,12 @@ const CircleMapPage: React.FC = () => {
 
         const allCircles: Circle[] = [];
 
-        for (const city in citymap) {          
+        for (const city in citymap) {
           allCircles.push({
-            strokeColor: '#FF0000',
+            strokeColor: "#FF0000",
             strokeOpacity: 0.8,
             strokeWeight: 2,
-            fillColor: '#FF0000',
+            fillColor: "#FF0000",
             fillOpacity: 0.35,
             center: citymap[city].center,
             radius: Math.sqrt(citymap[city].population) * 100,
@@ -105,7 +105,7 @@ const CircleMapPage: React.FC = () => {
         const newIds = createdIds.concat(ids);
         setIds(newIds);
 
-        setCommandOutput('Circles created');
+        setCommandOutput("Circles created");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -113,13 +113,13 @@ const CircleMapPage: React.FC = () => {
   };
 
   const deleteCircle = async () => {
-    setCommandOutput('');
+    setCommandOutput("");
     try {
       if (map) {
         await map.removeCircles(ids);
         setIds([]);
 
-        setCommandOutput('Circles removed');
+        setCommandOutput("Circles removed");
       }
     } catch (err: any) {
       setCommandOutput(err.message);
@@ -128,12 +128,12 @@ const CircleMapPage: React.FC = () => {
 
   const setOnCircleClickButton = async () => {
     map?.setOnCircleClickListener(onCircleClick);
-    setCommandOutput('Set On Circle Click Listeners!');
+    setCommandOutput("Set On Circle Click Listeners!");
   };
 
   const removeOnCircleClickButton = async () => {
     map?.setOnCircleClickListener();
-    setCommandOutput('Removed On Circle Click Listeners!');
+    setCommandOutput("Removed On Circle Click Listeners!");
   };
 
   return (
@@ -145,10 +145,7 @@ const CircleMapPage: React.FC = () => {
         <IonButton id="destroyMapButton" onClick={destroyMap}>
           Destroy Map
         </IonButton>
-        <IonButton
-          id="setOnCircleClickButton"
-          onClick={setOnCircleClickButton}
-        >
+        <IonButton id="setOnCircleClickButton" onClick={setOnCircleClickButton}>
           Set Click Listeners
         </IonButton>
         <IonButton
@@ -177,11 +174,11 @@ const CircleMapPage: React.FC = () => {
       <capacitor-google-map
         id="map_circles"
         style={{
-          position: 'absolute',
+          position: "absolute",
           bottom: 0,
           left: 0,
           width: window.outerWidth,
-          height: window.outerWidth * 2 / 3,
+          height: (window.outerWidth * 2) / 3,
         }}
       ></capacitor-google-map>
     </BaseTestingPage>

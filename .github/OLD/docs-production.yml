@@ -30,8 +30,8 @@ jobs:
       url: https://ionic.io/docs/${{ env.SLUG }}
     steps:
       - uses: actions/checkout@v3
-      
-      - name: 'Setup Tools'
+
+      - name: "Setup Tools"
         uses: ./.github/actions/setup-tools
 
       - name: Build
