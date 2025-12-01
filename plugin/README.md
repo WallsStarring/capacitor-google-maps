@@ -1287,7 +1287,7 @@ to determine if a position is a 2D or 3D position.
 
 #### Marker
 
-Supports markers of either either "legacy" or "advanced" types.
+Supports markers of either "legacy" or "advanced" types.
 
 <code>google.maps.<a href="#marker">Marker</a> | google.maps.marker.AdvancedMarkerElement</code>
 
